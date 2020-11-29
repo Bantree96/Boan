@@ -16,6 +16,8 @@
 </head>
 <body>
 <script>
+
+// db값을 가지고 조건 사용 후 data return ajax사용
 function repw(){
 	$.ajax({
 		url:"dbGet.jsp",

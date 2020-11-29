@@ -12,8 +12,6 @@
 	String id = request.getParameter("_id");
 	String pw = request.getParameter("_pw");
 				
-	
-          
 	//1.driver 로딩
 	Class.forName("com.mysql.jdbc.Driver");
 	// 2. DB연결   getConnection(url, id, pw)
@@ -21,30 +19,30 @@
 	// 3. Statement 객체 생성 : DB서버에 명령을 내리는 객체 생성
 	Statement stmt = conn.createStatement();
 	// 4. stmt객체로 query 실행
-	
 	// select쿼리 rs로 return
 	ResultSet rs = stmt.executeQuery("SELECT * FROM member WHERE id='"+id+"'");
 	
-	
-	
+	// 값이 있다면
 	if(rs.next()){
 		String DBpw = rs.getString("pw");
 		String DBname = rs.getString("name");
 		String DBsalt = rs.getString("salt");
 		int DBcount = rs.getInt("count");
 		
+		// 초기화 및 변수값 적용
 		String hashpw="";
-		// pw + Salt난수
-		pw = pw+DBsalt;
+		pw = pw+DBsalt; // pw + Salt난수
+	
 		// 비밀번호에 hash 적용
 		MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 		sha256.update(pw.getBytes());
 		byte[] digest01 = sha256.digest();
 		StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < digest01.length; i++) {
-            sb.append(Integer.toString((digest01[i] & 0xFF) + 256, 16).substring(1));
-        }
-        
+	        for (int i = 0; i < digest01.length; i++) {
+	            sb.append(Integer.toString((digest01[i] & 0xFF) + 256, 16).substring(1));
+	        }
+	    
+	    // hashpw 값 
         hashpw = sb.toString();
         
 	    // count 3회 이상 시도시
@@ -70,9 +68,7 @@
 		}
    	// 아이디가 없을시
 	} else {
-		
 		out.println("<script>alert('존재하지 않는 아이디입니다.');history.back();</script>");
-
 	}
 	// 5. close
 	stmt.close();

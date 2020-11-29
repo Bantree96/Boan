@@ -13,14 +13,10 @@
 	String id = request.getParameter("id");
 	String name = request.getParameter("name");
 	
-	
-	// salt값 생성
-	StringBuffer salt = new StringBuffer();
-	StringBuffer rePW = new StringBuffer();
-	
-	Random rnd = new Random();
-	
-	
+	// 초기화
+	StringBuffer salt = new StringBuffer(); // salt
+	StringBuffer rePW = new StringBuffer(); // 새로운 비밀번호
+	Random rnd = new Random(); // 랜덤 값
 	String hashpw = ""; // 암호화된 비밀번호
 	
 	try{
@@ -42,9 +38,11 @@
 			// name과 DBname이 같다면 비밀번호 초기화
 			if(DBname.equals(name)){
 				
+				
 				for (int i = 0; i < 6; i++) {
 				    int rIndex = rnd.nextInt(3);
 				    int xIndex = rnd.nextInt(3);
+					// salt값 랜덤
 				    switch (rIndex) {
 				    case 0:
 				        // a-z
@@ -59,7 +57,7 @@
 				        salt.append((rnd.nextInt(10)));
 				        break;
 				    }
-				    
+				    // rePW값 랜덤
 				    switch (xIndex) {
 				    case 0:
 				        // a-z
@@ -75,9 +73,9 @@
 				        break;
 				    }
 				}
+				// 값들 String타입변환
 				String SrePW = rePW.toString();
 				String Ssalt = salt.toString();
-				
 				String pwSalt = SrePW+Ssalt; // pw + Salt난수
 				
 				// 비밀번호에 hash 적용
@@ -88,9 +86,10 @@
 		           for (int i = 0; i < digest01.length; i++) {
 		               sb.append(Integer.toString((digest01[i] & 0xFF) + 256, 16).substring(1));
 		           }
-		           
+		           // 만들어진 hashpw
 		           hashpw = sb.toString();
-		           
+		        
+		        // query
 				stmt.executeUpdate("UPDATE member SET pw='"+hashpw+"', salt='"+salt+"', count='0' WHERE id='"+DBid+"'");
 			}
 		}

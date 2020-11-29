@@ -12,10 +12,8 @@
 <title>회원정보 수정</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet" href="index.css" />
-<script
-  src="https://code.jquery.com/jquery-3.5.1.slim.js"
-  integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
-  crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 <script type="text/javascript">
@@ -37,11 +35,6 @@ function signCheck(){
 		return false;
 	};
 };
-
-function back(){
-	history.back(); //뒤로가기
-
-}
 
 </script>
 	<!-- center -->

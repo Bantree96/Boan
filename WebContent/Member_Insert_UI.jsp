@@ -16,24 +16,18 @@
 </head>
 <body>
 <script type="text/javascript">
-$(document).ready(function(){
-	
-});
-
 // 비밀번호 유효성 검사
 function signCheck(){
 	var pwd1=$("#inputPW").val(); 
-	var passwdCheck = RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*-./]).{8,16}$/);
-	
+	var passwdCheck = RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*-./]).{8,16}$/); // pw 정규식 : 영문, 숫자, 특수문자를 포함한 8~16글자
 	if(!passwdCheck.test(pwd1)){
 		alert("비밀번호는 최소 8자이상, \n 영문,숫자,특수 기호를 조합하여 사용해야 합니다.");
 		$('#inputPW').focus();
 		return false;
 	};
 };
-
-
 </script>
+
 	<!-- center -->
 	<div class="mx-auto" >
 		<!-- card layout -->
