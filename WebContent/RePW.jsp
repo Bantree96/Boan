@@ -1,15 +1,15 @@
 <!--  
-	¼º¸í : ³²Áö¿ø 
-	ÇĞ¹ø : 201545047
+	ì„±ëª… : ë‚¨ì§€ì› 
+	í•™ë²ˆ : 201545047
  -->
  
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>È¸¿øÁ¤º¸ ¼öÁ¤</title>
+<meta charset="UTF-8">
+<title>íšŒì›ì •ë³´ ìˆ˜ì •</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet" href="index.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,13 +25,13 @@ function repw(){
 	           "id":$('#inputID').val(),
 	           "name":$('#inputNAME').val()
 	    },
-	    success:function(data){	// data = return°ª
+	    success:function(data){	// data = returnê°’
 	    	if(data!=0){
 	    		$("#inputPW").val($.trim(data));
 	    	} else {
-	    		$("#inputPW").val("Á¤º¸°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+	    		$("#inputPW").val("ì •ë³´ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	    	}
-	    },
+	    }
 	})	 
 };
 
@@ -40,28 +40,28 @@ function repw(){
 	<div class="mx-auto" >
 		<!-- card layout -->
 		<div class="card">
-		<div class="card-header">ºñ¹Ğ¹øÈ£ Ã£±â</div>
+		<div class="card-header">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</div>
 		
 		<div class="card-body">  
-		<!-- onsubmit : submit´­·¶À»¶§ Ã¼Å© -->
+		<!-- onsubmit : submitëˆŒë €ì„ë•Œ ì²´í¬ -->
 		
 		  <div class="form-group">
 		    <label for="inputID">ID</label>
 		    <input type="text" class="form-control" id="inputID" name="_id" required="required"/>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputNAME">ÀÌ¸§</label>
+		    <label for="inputNAME">ì´ë¦„</label>
 		    <input type="text" class="form-control" id="inputNAME" name="_name" required="required" />
 		  </div>
-		  <button class="btn btn-primary btn-block" onclick="repw()">ºñ¹Ğ¹øÈ£ Ã£±â</button>
+		  <button class="btn btn-primary btn-block" onclick="repw()">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</button>
 		  <hr />
 		  <div class="form-group">
 		    <label for="inputPW">Password</label>
 		    <input type="text" class="form-control" id="inputPW" name="_pw" readonly="readonly" />
-		  	<small id="passwordHelp" class="form-text text-muted">³ª¿À´Â ÀÓ½Ã ºñ¹Ğ¹øÈ£·Î ·Î±×ÀÎÀÌ °¡´ÉÇÕ´Ï´Ù.</small>
+		  	<small id="passwordHelp" class="form-text text-muted">ë‚˜ì˜¤ëŠ” ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ë¡œ ë¡œê·¸ì¸ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.</small>
 		  </div>
 		  
-		  <a href="index.jsp" class="btn btn-primary">ÀÌÀü</a>
+		  <a href="index.jsp" class="btn btn-primary">ì´ì „</a>
 
 		</div>
 		</div>

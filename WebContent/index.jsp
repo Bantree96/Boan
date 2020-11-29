@@ -1,15 +1,15 @@
 <!--  
-	¼º¸í : ³²Áö¿ø 
-	ÇÐ¹ø : 201545047
+	ì„±ëª… : ë‚¨ì§€ì› 
+	í•™ë²ˆ : 201545047
  -->
  
 <%@page import="java.sql.*"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
  <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>index</title>
 <!--  bootstrap -->
@@ -22,17 +22,17 @@
 <body>
 	<div class="mx-auto">
 		<form action="LoginCheck.jsp" class="form-signin" method="post">
-			<h1 class="h3 mb-3 font-weight-normal">·Î±×ÀÎ</h1>
+			<h1 class="h3 mb-3 font-weight-normal">ë¡œê·¸ì¸</h1>
 			<label for="username" class="sr-only">ID</label>
 			<input type="text" id="username" name="_id" class="form-control mb-2" placeholder="ID" required="required" />
 			<label for="password" class="sr-only">Password</label>
 			<input type="password" id="password" name="_pw" class="form-control mb-2" placeholder="Password" required="required" />
 		
-			<button class="btn btn-lg btn-success btn-block" type="submit">·Î±×ÀÎ</button>
-			<a href="RePW.jsp" class="btn btn-lg btn btn-secondary btn-block text-white">ºñ¹Ð¹øÈ£ Ã£±â</a>
+			<button class="btn btn-lg btn-success btn-block" type="submit">ë¡œê·¸ì¸</button>
+			<a href="RePW.jsp" class="btn btn-lg btn btn-secondary btn-block text-white">ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°</a>
 			
 			<hr />
-			<a href="Member_Insert_UI.jsp" class="btn btn-lg btn-primary btn-block text-white">È¸¿ø°¡ÀÔ</a>
+			<a href="Member_Insert_UI.jsp" class="btn btn-lg btn-primary btn-block text-white">íšŒì›ê°€ìž…</a>
 		</form>
 	</div>
 	

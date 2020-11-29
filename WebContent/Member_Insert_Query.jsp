@@ -1,25 +1,25 @@
 <!--  
-	¼º¸í : ³²Áö¿ø 
-	ÇĞ¹ø : 201545047
+	ì„±ëª… : ë‚¨ì§€ì› 
+	í•™ë²ˆ : 201545047
  -->
 <%@page import="java.util.Random"%>
 <%@page import="java.security.MessageDigest"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.sql.*" %>
 
 	<%
-	// ÇÑ±Û Ã³¸®
-	request.setCharacterEncoding("EUC-KR");
+	// í•œê¸€ ì²˜ë¦¬
+	request.setCharacterEncoding("UTF-8");
 	
-	// form¿¡¼­ °¡Á®¿Â °ª
+	// formì—ì„œ ê°€ì ¸ì˜¨ ê°’
 	String id = request.getParameter("_id");
 	String pw = request.getParameter("_pw");
 	String name = request.getParameter("_name");
 	
-	// ÇØ½Ã°ª ÀúÀå º¯¼ö
+	// í•´ì‹œê°’ ì €ì¥ ë³€ìˆ˜
 	String hashpw="";
 	
-	// salt°ª »ı¼º
+	// saltê°’ ìƒì„±
 	StringBuffer salt = new StringBuffer();
 	Random rnd = new Random();
 	for (int i = 0; i < 6; i++) {
@@ -44,7 +44,7 @@
 	pw = pw+salt;
 	
 	try{
-		// ºñ¹Ğ¹øÈ£¿¡ hash Àû¿ë
+		// ë¹„ë°€ë²ˆí˜¸ì— hash ì ìš©
 		MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 		sha256.update(pw.getBytes());
 		byte[] digest01 = sha256.digest();
@@ -55,22 +55,22 @@
         
         hashpw = sb.toString();
 		
-		// 1.driver ·Îµù
+		// 1.driver ë¡œë”©
 		Class.forName("com.mysql.jdbc.Driver");
-		// 2. DB¿¬°á   getConnection(url, id, pw)
+		// 2. DBì—°ê²°   getConnection(url, id, pw)
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/testdb_b","root","1234");
-		// 3. Statement °´Ã¼ »ı¼º : DB¼­¹ö¿¡ ¸í·ÉÀ» ³»¸®´Â °´Ã¼ »ı¼º
+		// 3. Statement ê°ì²´ ìƒì„± : DBì„œë²„ì— ëª…ë ¹ì„ ë‚´ë¦¬ëŠ” ê°ì²´ ìƒì„±
 		Statement stmt = conn.createStatement();
-		// 4. stmt°´Ã¼·Î query ½ÇÇà  
+		// 4. stmtê°ì²´ë¡œ query ì‹¤í–‰  
 		stmt.executeUpdate("insert into member (id, pw ,name, salt, count) values ('"+id+"','"+hashpw+"','"+name+"','"+salt+"','0')");
 		// 5. close
 		stmt.close();
 		conn.close();
 		
-		out.println("<script>alert('È¸¿ø°¡ÀÔ µÇ¾ú½À´Ï´Ù.');location.href='index.jsp';</script>");
+		out.println("<script>alert('íšŒì›ê°€ì… ë˜ì—ˆìŠµë‹ˆë‹¤.');location.href='index.jsp';</script>");
 		
 	} catch(Exception e){
-		e.printStackTrace(); // ¿À·ù ¹ß»ıÇÑ ¸Ş¼¼Áö¸¦ ÇÁ¸°Æ®
+		e.printStackTrace(); // ì˜¤ë¥˜ ë°œìƒí•œ ë©”ì„¸ì§€ë¥¼ í”„ë¦°íŠ¸
 	}
 		
 	%>

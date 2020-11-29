@@ -1,14 +1,14 @@
 <!--  
-	¼º¸í : ³²Áö¿ø 
-	ÇÐ¹ø : 201545047
+	ì„±ëª… : ë‚¨ì§€ì› 
+	í•™ë²ˆ : 201545047
  -->
  
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
  <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>main</title>
 <!--  bootstrap -->
@@ -20,11 +20,11 @@
 
 	<div class="mx-auto">
 		<%
-		out.println(session.getAttribute("__NAME")+"´Ô È¯¿µÇÕ´Ï´Ù.");
+		out.println(session.getAttribute("__NAME")+"ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.");
 		%>
 		<div class="form-group" style="width:200px">
-		  <a href="Member_Update_UI.jsp" class="btn btn-lg btn-primary btn-block text-white">Á¤º¸¼öÁ¤</a>
-			<a href="Logout.jsp" class="btn btn-lg btn-danger btn-block text-white">·Î±×¾Æ¿ô</a>
+		  <a href="Member_Update_UI.jsp" class="btn btn-lg btn-primary btn-block text-white">ì •ë³´ìˆ˜ì •</a>
+			<a href="Logout.jsp" class="btn btn-lg btn-danger btn-block text-white">ë¡œê·¸ì•„ì›ƒ</a>
 		</div>
 		
 	</div>

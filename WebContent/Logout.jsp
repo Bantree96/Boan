@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%	
-	// ¼¼¼Ç»èÁ¦, ·Î±×¾Æ¿ô
+	// ì„¸ì…˜ì‚­ì œ, ë¡œê·¸ì•„ì›ƒ
 	session.invalidate();
-	out.println("<script>alert('·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù.');location.href='index.jsp';</script>");
+	response.sendRedirect("index.jsp");
 %>

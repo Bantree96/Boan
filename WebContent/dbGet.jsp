@@ -1,67 +1,86 @@
 <%@page import="java.util.Random"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.security.MessageDigest"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 	<%
 	
-	// ÇÑ±Û Ã³¸®
-	request.setCharacterEncoding("EUC-KR");
+	// í•œê¸€ ì²˜ë¦¬
+	request.setCharacterEncoding("UTF-8");
 	
-	// ajax¿¡¼­ °¡Á®¿Â °ª
+	// ajaxì—ì„œ ê°€ì ¸ì˜¨ ê°’
 	String id = request.getParameter("id");
 	String name = request.getParameter("name");
 	
 	
-	StringBuffer temp = new StringBuffer();
+	// saltê°’ ìƒì„±
+	StringBuffer salt = new StringBuffer();
+	StringBuffer rePW = new StringBuffer();
+	
 	Random rnd = new Random();
-	for (int i = 0; i < 6; i++) {
-	    int rIndex = rnd.nextInt(3);
-	    switch (rIndex) {
-	    case 0:
-	        // a-z
-	        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
-	        break;
-	    case 1:
-	        // A-Z
-	        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-	        break;
-	    case 2:
-	        // 0-9
-	        temp.append((rnd.nextInt(10)));
-	        break;
-	    }
-	}
-
-	long rePW = 0; // »õ·Î¿î ºñ¹Ð¹øÈ£
-	long salt = 0; // salt
-	String hashpw = ""; // ¾ÏÈ£È­µÈ ºñ¹Ð¹øÈ£
+	
+	
+	String hashpw = ""; // ì•”í˜¸í™”ëœ ë¹„ë°€ë²ˆí˜¸
 	
 	try{
-		// 1.driver ·Îµù
+		// 1.driver ë¡œë”©
 		Class.forName("com.mysql.jdbc.Driver");
-		// 2. DB¿¬°á   getConnection(url, id, pw)
+		// 2. DBì—°ê²°   getConnection(url, id, pw)
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/testdb_b","root","1234");
-		// 3. Statement °´Ã¼ »ý¼º : DB¼­¹ö¿¡ ¸í·ÉÀ» ³»¸®´Â °´Ã¼ »ý¼º
+		// 3. Statement ê°ì²´ ìƒì„± : DBì„œë²„ì— ëª…ë ¹ì„ ë‚´ë¦¬ëŠ” ê°ì²´ ìƒì„±
 		Statement stmt = conn.createStatement();
-		// 4. stmt°´Ã¼·Î query ½ÇÇà  
-		// selectÄõ¸® rs·Î return
+		// 4. stmtê°ì²´ë¡œ query ì‹¤í–‰  
+		// selectì¿¼ë¦¬ rsë¡œ return
 		ResultSet rs = stmt.executeQuery("SELECT * FROM member WHERE id='"+id+"'");
 		
-		// id°¡ ÀÖ´Ù¸é
+		// idê°€ ìžˆë‹¤ë©´
 		if(rs.next()){
 			String DBid = rs.getString("id");
 			String DBname = rs.getString("name");
 			
-			// name°ú DBnameÀÌ °°´Ù¸é ºñ¹Ð¹øÈ£ ÃÊ±âÈ­
+			// nameê³¼ DBnameì´ ê°™ë‹¤ë©´ ë¹„ë°€ë²ˆí˜¸ ì´ˆê¸°í™”
 			if(DBname.equals(name)){
-				salt = Math.round( Math.random()*999999 ); // ³­¼ö
-				rePW = Math.round( Math.random()*999999 ); // »õ·Î¿î ºñ¹Ð¹øÈ£
-				//String pwSalt = rePW+Long.toString(salt); // pw + Salt³­¼ö
-				String pwSalt = Long.toString(rePW)+temp; // pw + Salt³­¼ö
 				
-				// ºñ¹Ð¹øÈ£¿¡ hash Àû¿ë
+				for (int i = 0; i < 6; i++) {
+				    int rIndex = rnd.nextInt(3);
+				    int xIndex = rnd.nextInt(3);
+				    switch (rIndex) {
+				    case 0:
+				        // a-z
+				        salt.append((char) ((int) (rnd.nextInt(26)) + 97));
+				        break;
+				    case 1:
+				        // A-Z
+				        salt.append((char) ((int) (rnd.nextInt(26)) + 65));
+				        break;
+				    case 2:
+				        // 0-9
+				        salt.append((rnd.nextInt(10)));
+				        break;
+				    }
+				    
+				    switch (xIndex) {
+				    case 0:
+				        // a-z
+				        rePW.append((char) ((int) (rnd.nextInt(26)) + 97));
+				        break;
+				    case 1:
+				        // A-Z
+				        rePW.append((char) ((int) (rnd.nextInt(26)) + 65));
+				        break;
+				    case 2:
+				        // 0-9
+				        rePW.append((rnd.nextInt(10)));
+				        break;
+				    }
+				}
+				String SrePW = rePW.toString();
+				String Ssalt = salt.toString();
+				
+				String pwSalt = SrePW+Ssalt; // pw + Saltë‚œìˆ˜
+				
+				// ë¹„ë°€ë²ˆí˜¸ì— hash ì ìš©
 				MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 				sha256.update(pwSalt.getBytes());
 				byte[] digest01 = sha256.digest();
@@ -72,7 +91,7 @@
 		           
 		           hashpw = sb.toString();
 		           
-				stmt.executeUpdate("UPDATE member SET pw='"+hashpw+"', salt='"+temp+"', count='0' WHERE id='"+DBid+"'");
+				stmt.executeUpdate("UPDATE member SET pw='"+hashpw+"', salt='"+salt+"', count='0' WHERE id='"+DBid+"'");
 			}
 		}
 		// 5. close
@@ -81,7 +100,7 @@
 		
 		
 	} catch(Exception e){
-		e.printStackTrace(); // ¿À·ù ¹ß»ýÇÑ ¸Þ¼¼Áö¸¦ ÇÁ¸°Æ®
+		e.printStackTrace(); // ì˜¤ë¥˜ ë°œìƒí•œ ë©”ì„¸ì§€ë¥¼ í”„ë¦°íŠ¸
 	}
 		
 	%>

@@ -1,28 +1,28 @@
 <%@page import="java.security.MessageDigest"%>
 <%@page import="java.sql.*"%>
 
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <%
-	//ÇÑ±Û Ã³¸®
-	request.setCharacterEncoding("EUC-KR");
+	//í•œê¸€ ì²˜ë¦¬
+	request.setCharacterEncoding("UTF-8");
 
-	// form¿¡¼­ °¡Á®¿Â °ª
+	// formì—ì„œ ê°€ì ¸ì˜¨ ê°’
 	String id = request.getParameter("_id");
 	String pw = request.getParameter("_pw");
 				
 	
           
-	//1.driver ·Îµù
+	//1.driver ë¡œë”©
 	Class.forName("com.mysql.jdbc.Driver");
-	// 2. DB¿¬°á   getConnection(url, id, pw)
+	// 2. DBì—°ê²°   getConnection(url, id, pw)
 	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/testdb_b","root","1234");
-	// 3. Statement °´Ã¼ »ı¼º : DB¼­¹ö¿¡ ¸í·ÉÀ» ³»¸®´Â °´Ã¼ »ı¼º
+	// 3. Statement ê°ì²´ ìƒì„± : DBì„œë²„ì— ëª…ë ¹ì„ ë‚´ë¦¬ëŠ” ê°ì²´ ìƒì„±
 	Statement stmt = conn.createStatement();
-	// 4. stmt°´Ã¼·Î query ½ÇÇà
+	// 4. stmtê°ì²´ë¡œ query ì‹¤í–‰
 	
-	// selectÄõ¸® rs·Î return
+	// selectì¿¼ë¦¬ rsë¡œ return
 	ResultSet rs = stmt.executeQuery("SELECT * FROM member WHERE id='"+id+"'");
 	
 	
@@ -34,9 +34,9 @@
 		int DBcount = rs.getInt("count");
 		
 		String hashpw="";
-		// pw + Salt³­¼ö
+		// pw + Saltë‚œìˆ˜
 		pw = pw+DBsalt;
-		// ºñ¹Ğ¹øÈ£¿¡ hash Àû¿ë
+		// ë¹„ë°€ë²ˆí˜¸ì— hash ì ìš©
 		MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
 		sha256.update(pw.getBytes());
 		byte[] digest01 = sha256.digest();
@@ -47,31 +47,31 @@
         
         hashpw = sb.toString();
         
-	    // count 3È¸ ÀÌ»ó ½Ãµµ½Ã
+	    // count 3íšŒ ì´ìƒ ì‹œë„ì‹œ
 	    if(DBcount >= 3){
-	    	out.println("<script>alert('ºñ¹Ğ¹øÈ£ 3È¸ÀÌ»ó ½Ãµµ°¨ÁöµÇ¾î °èÁ¤ÀÌ Àá±İÁ¶Ä¡ µÇ¾ú½À´Ï´Ù. ºñ¹Ğ¹øÈ£ Ã£±â¸¦ »ç¿ëÇØÁÖ¼¼¿ä');history.back();</script>");
+	    	out.println("<script>alert('ë¹„ë°€ë²ˆí˜¸ 3íšŒì´ìƒ ì‹œë„ê°ì§€ë˜ì–´ ê³„ì •ì´ ì ê¸ˆì¡°ì¹˜ ë˜ì—ˆìŠµë‹ˆë‹¤. ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ë¥¼ ì‚¬ìš©í•´ì£¼ì„¸ìš”');history.back();</script>");
 		} else {  
         
-	        // ºñ¹Ğ¹øÈ£ ÀÏÄ¡½Ã
+	        // ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ì‹œ
 			if(DBpw.equals(hashpw)){
-				stmt.executeUpdate("UPDATE member SET count='0' WHERE id='"+id+"'"); // ·Î±×ÀÎ ½Ãµµ È½¼ö ÃÊ±âÈ­
-				// ¼¼¼Ç¿¡ °ª ÀúÀå 
+				stmt.executeUpdate("UPDATE member SET count='0' WHERE id='"+id+"'"); // ë¡œê·¸ì¸ ì‹œë„ íšŸìˆ˜ ì´ˆê¸°í™”
+				// ì„¸ì…˜ì— ê°’ ì €ì¥ 
 				session.setAttribute("__ID", id);
 				session.setAttribute("__PW", DBpw);
 				session.setAttribute("__NAME", DBname);
 				response.sendRedirect("main.jsp");
 				
-			// ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡½Ã
+			// ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜ì‹œ
 			} else {
 				DBcount++;
-				stmt.executeUpdate("UPDATE member SET count='"+DBcount+"' WHERE id='"+id+"'"); // ·Î±×ÀÎ ½Ãµµ È½¼ö ÃÊ±âÈ­
-				out.println("<script>alert('ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.');history.back();</script>");
+				stmt.executeUpdate("UPDATE member SET count='"+DBcount+"' WHERE id='"+id+"'"); // ë¡œê·¸ì¸ ì‹œë„ íšŸìˆ˜ ì´ˆê¸°í™”
+				out.println("<script>alert('ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.');history.back();</script>");
 			}
 		}
-   	// ¾ÆÀÌµğ°¡ ¾øÀ»½Ã
+   	// ì•„ì´ë””ê°€ ì—†ì„ì‹œ
 	} else {
 		
-		out.println("<script>alert('Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù.');history.back();</script>");
+		out.println("<script>alert('ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.');history.back();</script>");
 
 	}
 	// 5. close
